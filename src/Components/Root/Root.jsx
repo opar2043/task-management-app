@@ -30,6 +30,15 @@ const Root = () => {
   }
 
 
+  function handleSure(){
+    Swal.fire({
+      title: "Log In frist",
+      icon: "error",
+      draggable: true,
+    });
+  }
+
+
   const [theme, setTheme] = useState(false);
 
   function toggleTheme() {
@@ -124,11 +133,11 @@ const Root = () => {
           {
             user ?
             <Link to="/dashboard">
-            <button className="bg-blue-600 text-white px-6 py-3 rounded-lg text-lg font-semibold hover:bg-blue-700 transition">
+            <button  className="bg-blue-600 text-white px-6 py-3 rounded-lg text-lg font-semibold hover:bg-blue-700 transition">
               Get Started
             </button>
           </Link>
-            : <button className="bg-blue-600 text-white px-6 py-3 rounded-lg text-lg font-semibold hover:bg-blue-700 transition">
+            : <button onClick={handleSure} className="bg-blue-600 text-white px-6 py-3 rounded-lg text-lg font-semibold hover:bg-blue-700 transition">
             Log In Frist
           </button>
           }

@@ -1,25 +1,3 @@
-// import React, { useEffect, useState } from 'react'
-// import useAxios from './useAxios'
-
-// const useTasks = () => {
-//     const axiosSecure = useAxios();
-
-//   const [tasks , setTasks] = useState([]);
-//   useEffect(()=>{
-//    fetch('https://task-management-server-one-gamma.vercel.app/tasks')
-//    .then(res => res.json())
-//    .then(data =>{
-//      setTasks(data)
-//     })
-//   },[tasks])
-
-
-//   return [tasks]
-// }
-
-// export default useTasks
-
-
 import { useState, useEffect } from "react";
 import useAxios from "./useAxios"; // Ensure correct import
 

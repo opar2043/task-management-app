@@ -1,12 +1,24 @@
-import React from "react";
-import useTasks from "../Shared/useTasks";
+
+import { CSS } from "@dnd-kit/utilities";
 import { FaCalendarAlt, FaEdit, FaTag, FaTrash } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import useAxios from "../Shared/useAxios";
 import Swal from "sweetalert2";
+import { useSortable } from "@dnd-kit/sortable";
 
 const Tasks = ({ title, description, deadline, category, id }) => {
   const axiosSecure = useAxios();
+  const {attributes , listeners ,setNodeRef,transform , transition}=useSortable({
+    id: id
+  });
+   
+  const style = {
+    transition ,
+    transform: CSS.Transform.toString(transform),
+
+  }
+
+
   function handleDelete(tid) {
     Swal.fire({
       title: "Are you sure?",
@@ -34,8 +46,8 @@ const Tasks = ({ title, description, deadline, category, id }) => {
   }
 
   return (
-    <div>
-      <div className="bg-gradient-to-t from-blue-100 via-blue-200 to-blue-300 shadow-lg rounded-lg p-4 border-l-4 border-blue-600 hover:shadow-xl transition-all mt-2">
+  
+      <div style={style} ref={setNodeRef} {...attributes} {...listeners} className="bg-gradient-to-t from-blue-100 via-blue-200 to-blue-300 shadow-lg rounded-lg p-4 border-l-4 border-blue-600 hover:shadow-xl transition-all mt-2">
         <div className="flex justify-between">
           <div className="flex flex-col text-sm">
             <p className="text-slate-900 font-bold">Title</p>
@@ -81,7 +93,7 @@ const Tasks = ({ title, description, deadline, category, id }) => {
           </div>
         </div>
       </div>
-    </div>
+   
 
   );
 };
