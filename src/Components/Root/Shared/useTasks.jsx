@@ -6,7 +6,7 @@
 
 //   const [tasks , setTasks] = useState([]);
 //   useEffect(()=>{
-//    fetch('http://localhost:5000/tasks')
+//    fetch('https://task-management-server-one-gamma.vercel.app/tasks')
 //    .then(res => res.json())
 //    .then(data =>{
 //      setTasks(data)
@@ -28,7 +28,7 @@ const useTasks = () => {
   const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/tasks")
+    fetch("https://task-management-server-one-gamma.vercel.app/tasks")
       .then((res) => res.json())
       .then((data) => {
         setTasks(data); // ✅ Correctly updating tasks

@@ -6,7 +6,6 @@ import useAxios from "../Shared/useAxios";
 import Swal from "sweetalert2";
 
 const Tasks = ({ title, description, deadline, category, id }) => {
-  
   const axiosSecure = useAxios();
   function handleDelete(tid) {
     Swal.fire({
@@ -36,45 +35,54 @@ const Tasks = ({ title, description, deadline, category, id }) => {
 
   return (
     <div>
-      <div className=" shadow-lg rounded-lg p-4 border-l-4 border-blue-500 hover:shadow-xl transition-all bg-blue-200 mt-2">
-        {/* Title */}
-        <div className="flex justify-between items-center">
-          <h2 className="text-xl font-bold text-gray-800">{title}</h2>
-          <button
-            onClick={() => handleDelete(id)}
-            className="btn btn-ghost text-white bg-red-500 rounded btn-xs "
-          >
-            <FaTrash></FaTrash>
-          </button>
-        </div>
-
-        {/* Description */}
-        <div className="flex justify-between mt-3 items-center">
-          <p className="text-gray-600 mt-2">{description}</p>
-
-          <Link to={`/dashboard/edit/${id}`}>
-            <button className="btn btn-ghost rounded bg-blue-600 btn-xs text-white">
-              <FaEdit></FaEdit>
-            </button>
-          </Link>
-        </div>
-
-        {/* Category & Deadline */}
-        <div className="flex justify-between items-center mt-4 text-sm text-gray-500">
-          {/* Category Badge */}
-          <span className="flex items-center gap-2 bg-blue-100 text-blue-600 px-3 py-1 rounded-full">
-            <FaTag /> {category || "Uncategorized"}
-          </span>
+      <div className="bg-gradient-to-t from-blue-100 via-blue-200 to-blue-300 shadow-lg rounded-lg p-4 border-l-4 border-blue-600 hover:shadow-xl transition-all mt-2">
+        <div className="flex justify-between">
+          <div className="flex flex-col text-sm">
+            <p className="text-slate-900 font-bold">Title</p>
+            <p className="text-gray-700 font-semibold">{title}</p>
+          </div>
 
           {/* Deadline */}
           <div className=" flex flex-col">
-            <span className="font-semibold text-blue-600 text-center">Due Date</span>
-           <span className="flex items-center justify-center gap-1 mt-1 bg-gray-200 rounded-full text-xs p-1 font-semibold"> <FaCalendarAlt /> {deadline}</span>
+            <span className="font-bold text-blue-600 text-center">
+              Due Date
+            </span>
+            <span className="flex items-center justify-center gap-1 mt-1 bg-white  rounded-full text-xs py-1 px-2 font-semibold">
+              {" "}
+              <FaCalendarAlt /> {deadline}
+            </span>
           </div>
         </div>
-        {/* <div></div> */}
+
+        <div className="flex flex-col text-sm mt-2">
+          <p className="text-slate-900 font-bold ">Description</p>
+          <p className="text-gray-700 font-semibold">{description}</p>
+        </div>
+
+        {/* Category & Deadline */}
+        <div className="flex justify-between items-center  text-sm text-gray-500 mt-4">
+          {/* Category Badge */}
+          <p className="flex items-center font-semibold justify-start gap-2 bg-blue-600 text-white px-3 py-1 rounded-full">
+            <FaTag /> {category || "Uncategorized"}
+          </p>
+
+          <div className="flex justify-start gap-2 items-center  ">
+            <Link to={`/dashboard/edit/${id}`}>
+              <button className="btn btn-ghost rounded bg-blue-600 btn-xs text-white">
+                <FaEdit></FaEdit> 
+              </button>
+            </Link>
+            <button
+              onClick={() => handleDelete(id)}
+              className="btn btn-ghost text-white bg-red-500 rounded btn-xs "
+            >
+              <FaTrash></FaTrash> 
+            </button>
+          </div>
+        </div>
       </div>
     </div>
+
   );
 };
 

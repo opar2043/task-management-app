@@ -12,7 +12,7 @@
 //   const [category , setCategory] = useState(null);
 
 //   useEffect(() => {
-//     fetch("http://localhost:5000/tasks")
+//     fetch("https://task-management-server-one-gamma.vercel.app/tasks")
 //       .then((res) => res.json())
 //       .then((data) => {
 //         setTasks(data);
@@ -163,7 +163,7 @@
 
 
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import useAxios from "../Shared/useAxios";
 import Swal from "sweetalert2";
@@ -177,7 +177,7 @@ const TaskEdit = () => {
   const [category, setCategory] = useState('todo');
 
   useEffect(() => {
-    fetch("http://localhost:5000/tasks")
+    fetch("https://task-management-server-one-gamma.vercel.app/tasks")
       .then((res) => res.json())
       .then((data) => {
         setTasks(data);
