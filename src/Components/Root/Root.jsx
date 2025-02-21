@@ -1,7 +1,8 @@
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "./Provider/AuthProvider";
+import { FaMoon, FaSun } from "react-icons/fa";
 
 const Root = () => {
   const { googleSignIn, logOut, user, setUser, loading } = useContext(AuthContext);
@@ -27,6 +28,20 @@ const Root = () => {
         });
       });
   }
+
+
+  const [theme, setTheme] = useState(false);
+
+  function toggleTheme() {
+    const htmlElement = document.documentElement;
+    if (theme) {
+      htmlElement.setAttribute("data-theme", "light"); // Light theme
+    } else {
+      htmlElement.setAttribute("data-theme", "dark"); // Dark theme
+    }
+    setTheme(!theme); // Update theme state
+  }
+
 
   function logOutUser() {
     logOut()
@@ -61,7 +76,24 @@ const Root = () => {
               className="w-10 h-10 rounded-full border border-gray-300 shadow-md"
             />
           )}
+
+          
+        {/* Dark Mode Toggle Button */}
+
+        <button
+          className=""
+          onClick={toggleTheme}
+        >
+          {/* Sun Icon for Light Mode */}
+          {theme ? (
+            <FaSun className="h-5 w-5 text-yellow-500" />
+          ) : (
+            // Moon Icon for Dark Mode
+            <FaMoon className="h-5 w-5 text-gray-400" />
+          )}
+        </button>
           <p className="text-gray-700 font-medium">{user?.displayName}</p>
+
           {user ? (
             <button
               onClick={logOutUser}
@@ -77,6 +109,8 @@ const Root = () => {
               Log In
             </button>
           )}
+
+
         </div>
       </header>
 
@@ -87,11 +121,18 @@ const Root = () => {
           <p className="py-6 text-gray-600">
             Boost productivity with real-time task tracking, drag-and-drop management, and seamless collaboration.
           </p>
-          <Link to="/dashboard">
+          {
+            user ?
+            <Link to="/dashboard">
             <button className="bg-blue-600 text-white px-6 py-3 rounded-lg text-lg font-semibold hover:bg-blue-700 transition">
               Get Started
             </button>
           </Link>
+            : <button className="bg-blue-600 text-white px-6 py-3 rounded-lg text-lg font-semibold hover:bg-blue-700 transition">
+            Log In Frist
+          </button>
+          }
+
         </div>
       </div>
     </div>
@@ -99,3 +140,6 @@ const Root = () => {
 };
 
 export default Root;
+
+
+

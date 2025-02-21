@@ -174,7 +174,7 @@ const TaskEdit = () => {
 
   const [tasks, setTasks] = useState([]);
   const [deadline, setDeadline] = useState(null);
-  const [category, setCategory] = useState(null);
+  const [category, setCategory] = useState('todo');
 
   useEffect(() => {
     fetch("http://localhost:5000/tasks")

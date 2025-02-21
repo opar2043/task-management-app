@@ -12,26 +12,26 @@ const Dashboard = () => {
   const { googleSignIn, logOut, user, setUser, loading } =
     useContext(AuthContext);
 
+  const [etasks, setTasks] = useState([]);
 
-      const [tasks, setTasks] = useState([]);
-    
-      useEffect(() => {
-        fetch("http://localhost:5000/tasks")
-          .then((res) => res.json())
-          .then((data) => {
-            setTasks(data); 
-          })
-      }, []); 
+  const tasks = etasks.filter((tas) => tas?.email === user?.email);
+
+  useEffect(() => {
+    fetch("http://localhost:5000/tasks")
+      .then((res) => res.json())
+      .then((data) => {
+        setTasks(data);
+      });
+  }, []);
   console.log(tasks);
 
-  const todo = tasks.filter(task => task.category == 'todo');
-  const progress = tasks.filter(task => task.category == 'progress');
-  const done = tasks.filter(task => task.category == 'done');
+  const todo = tasks.filter((task) => task.category == "todo");
+  const progress = tasks.filter((task) => task.category == "progress");
+  const done = tasks.filter((task) => task.category == "done");
 
-
-  console.log(todo , 'todo');
-  console.log(progress , 'progress');
-  console.log(done , 'done');
+  // console.log(todo, "todo");
+  // console.log(progress, "progress");
+  // console.log(done, "done");
 
   function loginUser() {
     googleSignIn()
@@ -78,44 +78,6 @@ const Dashboard = () => {
   }
 
   return (
-    // <div className="min-h-screen bg-gradient-to-r from-blue-500 to-pink-400 p-6">
-    //   {/* Navbar */}
-    //   {/* <div className="flex justify-between items-center bg-white shadow-md rounded-lg p-4">
-    //     <h1 className="text-2xl font-bold text-gray-800">Task Manager</h1>
-    //     <div className="flex items-center gap-3">
-    //       <img
-    //         src={user?.photoURL}
-    //         alt="User"
-    //         className="w-10 h-10 rounded-full border"
-    //       />
-    //       <p className="text-gray-700">{user?.displayName}</p>
-    //       {user ? (
-    //         <button
-    //           onClick={() => logOutUser()}
-    //           className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600"
-    //         >
-    //           Logout
-    //         </button>
-    //       ) : (
-    //         <button
-    //           onClick={() => loginUser()}
-    //           className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-red-600"
-    //         >
-    //           Log In
-    //         </button>
-    //       )}
-    //     </div>
-    //   </div> */}
-
-    //   {/* Add Task Floating Button */}
-    //   <Link to={'/dashboard/taskboard'}>
-    //   <button className="fixed bottom-6 right-6 bg-blue-600 text-white p-4 rounded-full shadow-lg hover:bg-blue-700">
-    //     <FaPlus size={20} />
-    //   </button>
-    //   </Link>
-
-    // </div>
-
     <div className="min-h-screen bg-gradient-to-r from-blue-500 to-pink-400 p-6">
       {/* Dashboard Title */}
       <h1 className="text-4xl font-extrabold text-white text-center mb-8">
@@ -130,29 +92,43 @@ const Dashboard = () => {
             <FaClipboardList className="text-blue-600" /> To-Do
           </h2>
           <div className="flex flex-col gap-2">
-       {
-           todo && todo.map(to => 
-                <Tasks key={to._id} title={to.title} description={to.description} deadline={to.deadline} id={to._id}></Tasks>       
-          )
-          }
-       </div>
+            {todo ? (
+              todo.map((to) => (
+                <Tasks
+                  key={to._id}
+                  title={to.title}
+                  description={to.description}
+                  deadline={to.deadline}
+                  category={to.category}
+                  id={to._id}
+                ></Tasks>
+              ))
+            ) : (
+              <p>No Data Yet</p>
+            )}
+          </div>
         </div>
-
 
         {/* In Progress Column */}
         <div className="bg-white p-4 rounded-lg shadow-lg">
           <h2 className="text-xl font-semibold text-gray-800 flex items-center gap-2">
             <FaClock className="text-yellow-500" /> In Progress
           </h2>
-         <div>
-         <div className="flex flex-col gap-2">
-       {
-           progress && progress.map(to => 
-                <Tasks key={to._id} title={to.title} description={to.description} deadline={to.deadline} id={to._id}></Tasks>       
-          )
-          }
-       </div>
-         </div>
+          <div>
+            <div className="flex flex-col gap-2">
+              {progress &&
+                progress.map((to) => (
+                  <Tasks
+                    key={to._id}
+                    title={to.title}
+                    description={to.description}
+                    deadline={to.deadline}
+                    category={to.category}
+                    id={to._id}
+                  ></Tasks>
+                ))}
+            </div>
+          </div>
         </div>
 
         {/* Completed Column */}
@@ -161,11 +137,17 @@ const Dashboard = () => {
             <FaCheckCircle className="text-green-500" /> Completed
           </h2>
           <div className="flex flex-col gap-2">
-          {
-           done && done.map(to => 
-                <Tasks key={to._id} title={to.title} description={to.description} deadline={to.deadline} id={to._id}></Tasks>       
-          )
-          }
+            {done &&
+              done.map((to) => (
+                <Tasks
+                  key={to._id}
+                  title={to.title}
+                  description={to.description}
+                  deadline={to.deadline}
+                  category={to.category}
+                  id={to._id}
+                ></Tasks>
+              ))}
           </div>
         </div>
       </div>

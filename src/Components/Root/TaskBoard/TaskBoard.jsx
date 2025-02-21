@@ -1,12 +1,13 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Outlet } from "react-router-dom";
 import useAxios from "../Shared/useAxios";
 import Swal from "sweetalert2";
+import { AuthContext } from "../Provider/AuthProvider";
 
 const TaskBoard = () => {
-
+  const {user} = useContext(AuthContext)
   const [deadline , setDeadline] = useState(null);
-  const [category , setCategory] = useState(null);
+  const [category , setCategory] = useState('todo');
   const axiosSecure = useAxios();
 
   function handleSubmit(e){
@@ -19,7 +20,8 @@ const TaskBoard = () => {
       title,
       description ,
       deadline ,
-      category
+      category,
+      email: user?.email
     }
 
     axiosSecure.post('/tasks', nameValue)
